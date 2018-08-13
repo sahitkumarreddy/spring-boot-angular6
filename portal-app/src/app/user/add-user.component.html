@@ -1,0 +1,43 @@
+<div class="col-md-6">
+    <h2 class="text-center">Add User</h2>
+
+    <div class="alert alert-danger" *ngIf="errorMsg"> {{errorMsg}}</div>
+
+  <form #userForm='ngForm' novalidate>
+
+      <div class="form-group">
+          <label for="email">Email address:</label>
+          <input type="email" class="form-control" name="email" [(ngModel)]="user.email"
+          #email="ngModel" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" 
+          [class.is-invalid]="email.invalid && email.touched"
+          placeholder="Email" name="email" class="form-control" id="email" required>
+    
+         <small class="text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+            Email is required </small>
+          <small class="text-danger" *ngIf="email.errors && email.errors.pattern">:Enter valid email </small>
+
+        </div>
+    
+  
+    <div class="form-group">
+      <label for="firstName">First Name:</label>
+      <input [(ngModel)]="user.firstName" 
+      #firstName="ngModel" [class.is-invalid]="firstName.invalid && firstName.touched"
+      placeholder="First Name" name="firstName" class="form-control" id="firstName" required>
+      <small class="text-danger" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+        First Name is required </small>
+    </div>
+  
+    <div class="form-group">
+      <label for="lastName">Last Name:</label>
+     <input [(ngModel)]="user.lastName" 
+     #lastName="ngModel" [class.is-invalid]="lastName.invalid && lastName.touched"
+     placeholder="Last name" name="lastName" class="form-control" id="lastName" required>
+
+     <small class="text-danger" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+       Last Name is required </small>
+    </div>
+  
+    <button [disabled]="userForm.form.invalid" class="btn btn-success" (click)="createUser()">Create</button>
+  </form>
+  </div>
